@@ -5,8 +5,5 @@ connection = mysql.connector.connect(
     host='localhost',
     user='client',
     password='client',
-    database='database'
+    database='school'
 )
-
-executeCommands = connection.cursor()
-

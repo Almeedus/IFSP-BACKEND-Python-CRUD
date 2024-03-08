@@ -1,4 +1,6 @@
---CREATE USER 'cliente'@'localhost' IDENTIFIED BY 'client';
+--CREATE USER 'client'@'localhost' IDENTIFIED BY 'client';
+--GRANT ALL PRIVILEGES ON * . * TO 'client'@'localhost';
+
 CREATE DATABASE school;
 USE school;
 
