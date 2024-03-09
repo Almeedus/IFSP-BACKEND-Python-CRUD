@@ -75,10 +75,10 @@ while True:
                     telephone = int(newTelephone)
 
             cursor.execute(f"UPDATE {databaseTables[option-1]} SET (Nome, Idade, Sexo, Telefone) VALUES ('{name}',{age},{gender},{telephone}), WHERE id = {optionChange}")
-            ...
         elif optionCrud == 4:
             #CRUD - Delete
-            
+            id = int(input('Qual registro quer apagar: '))
+            cursor.execute(f"DELETE FROM {databaseTables[option-1]} WHERE id = {id}")
             ...
         else:
             print('Digite uma opção válida.')
