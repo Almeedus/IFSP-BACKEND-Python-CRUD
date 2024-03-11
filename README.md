@@ -17,3 +17,11 @@ ou
 ```
 pip3 install -r requirements.txt
 ```
+## Banco de Dados
+Para criar o user pode descomentar esses comandos e rodar no user 'root'
+```
+CREATE USER 'client'@'localhost' IDENTIFIED BY 'client';
+GRANT ALL PRIVILEGES ON * . * TO 'client'@'localhost';
+FLUSH PRIVILEGES;
+```
+Acesse o novo usuário e rode o script do banco de dados
