@@ -23,13 +23,16 @@ def updateAluno(option):
 def updateCurso(option):
     optionChange = option
 
-    newName = str(input('Nome: '))
-    newDescricao = str(input('Descricao: '))
-    newNumeroVagas = int(input('Quantidade de vagas: '))
-    newCargaHoraria = int(input('Carga horária: '))
+    try:
+        newName = str(input('Nome: '))
+        newDescricao = str(input('Descricao: '))
+        newNumeroVagas = int(input('Quantidade de vagas: '))
+        newCargaHoraria = int(input('Carga horária: '))
 
-    cursor.execute(f"UPDATE curso SET Nome = '{newName}', Descricao = '{newDescricao}', Numero_vagas = '{newNumeroVagas}', Carga_horaria = '{newCargaHoraria}' WHERE ID_curso = {optionChange}")
-    connect.commit()
+        cursor.execute(f"UPDATE curso SET Nome = '{newName}', Descricao = '{newDescricao}', Numero_vagas = '{newNumeroVagas}', Carga_horaria = '{newCargaHoraria}' WHERE ID_curso = {optionChange}")
+        connect.commit()
+    except ValueError:
+        return "Valor digitado não é o esperado."
             
 
 while True:
