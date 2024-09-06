@@ -1,12 +1,4 @@
-import mysql.connector
-
-connect = mysql.connector.connect(
-    #change names after creat a database
-    host='localhost',
-    user='client',
-    password='client',
-    database='school'
-)
+from db import connect
 
 #this variable is responsable to execute SQL comands.
 cursor = connect.cursor()
