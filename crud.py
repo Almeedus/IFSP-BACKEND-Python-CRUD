@@ -8,13 +8,17 @@ databaseCRUD = ['Criar novo registro', 'Ler registro', 'Atualizar registro', 'De
 def updateAluno(option):
     optionChange = option
 
-    newName = str(input('Novo nome: '))
-    newAge = int(input('Nova idade: '))
-    newGender = int(input('Novo sexo [1-Masc | 2-Fem]: '))
-    newTelephone = int(input('Novo telefone [(xx)xxxxx-xxxx]: '))
+    try:
+        newName = str(input('Novo nome: '))
+        newAge = int(input('Nova idade: '))
+        newGender = int(input('Novo sexo [1-Masc | 2-Fem]: '))
+        newTelephone = int(input('Novo telefone [(xx)xxxxx-xxxx]: '))
 
-    cursor.execute(f"UPDATE aluno SET Nome = '{newName}', Idade = {newAge}, Sexo = '{newGender}', Telefone = '{newTelephone}' WHERE RA = {optionChange}")
-    connect.commit()
+        cursor.execute(f"UPDATE aluno SET Nome = '{newName}', Idade = {newAge}, Sexo = '{newGender}', Telefone = '{newTelephone}' WHERE RA = {optionChange}")
+        connect.commit()
+    except ValueError:
+        return "Valor digitado não é o esperado."
+        
             
 def updateCurso(option):
     optionChange = option
