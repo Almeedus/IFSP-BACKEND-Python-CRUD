@@ -5,6 +5,12 @@ cursor = connect.cursor()
 databaseTables = ['aluno', 'aluno_curso', 'curso', 'sair']
 databaseCRUD = ['Criar novo registro', 'Ler registro', 'Atualizar registro', 'Deletar registro']
 
+def CloseConnectionTable():
+    cursor.execute(f"SELECT * FROM {databaseTables[option-1]}")
+    cursor.fetchall()
+    
+
+
 def updateAluno(option):
     optionChange = option
 
@@ -62,14 +68,10 @@ while True:
             print('Dados inseridos com sucesso.')
         elif optionCrud == 2:
             #CRUD - Read
-            cursor.execute(f"SELECT * FROM {databaseTables[option-1]}")
-            result = cursor.fetchall()
-            print(result)
+            CloseConnectionTable()
         elif optionCrud == 3:
             #CRUD - Update
-            cursor.execute(f"SELECT * FROM {databaseTables[option-1]}")
-            result = cursor.fetchall()
-            print(result)
+            CloseConnectionTable()
 
             optionChange = int(input('Qual o ID que deseja modificar: '))
             updateAluno(option=optionChange)
@@ -94,12 +96,10 @@ while True:
             #CRUD - Read
             cursor.execute(f"SELECT ac.ID_curso_aluno, a.Nome AS RA, c.Nome AS ID_curso FROM aluno_curso ac JOIN aluno a ON ac.FK_RA_aluno = a.RA JOIN curso c ON ac.FK_ID_curso = c.ID_curso;")
             result = cursor.fetchall()
-            print(result)
         elif optionCrud == 3:
             #CRUD - Update  VOLTAR AQUI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             cursor.execute(f"SELECT ac.ID_curso_aluno, a.Nome AS RA, c.Nome AS ID_curso FROM aluno_curso ac JOIN aluno a ON ac.FK_RA_aluno = a.RA JOIN curso c ON ac.FK_ID_curso = c.ID_curso;")
             result = cursor.fetchall()
-            print(result)
 
             optionChange = int(input('Qual o ID que deseja modificar: '))
             
@@ -134,14 +134,10 @@ while True:
             print('Dados inseridos com sucesso.')
         elif optionCrud == 2:
             #CRUD - Read
-            cursor.execute(f"SELECT * FROM {databaseTables[option-1]}")
-            result = cursor.fetchall()
-            print(result)
+            CloseConnectionTable()
         elif optionCrud == 3:
             #CRUD - Update
-            cursor.execute(f"SELECT * FROM {databaseTables[option-1]}")
-            result = cursor.fetchall()
-            print(result)
+            CloseConnectionTable()
 
             optionChange = int(input('Qual o ID que deseja modificar: '))
             updateCurso(optionChange)
