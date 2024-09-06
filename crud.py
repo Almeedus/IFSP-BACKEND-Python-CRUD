@@ -12,30 +12,30 @@ def CloseConnectionTable():
 
 
 def updateAluno(option):
-    optionChange = option
+    option_change = option
 
     try:
-        newName = str(input('Novo nome: '))
-        newAge = int(input('Nova idade: '))
-        newGender = int(input('Novo sexo [1-Masc | 2-Fem]: '))
-        newTelephone = int(input('Novo telefone [(xx)xxxxx-xxxx]: '))
+        new_name = str(input('Novo nome: '))
+        new_age = int(input('Nova idade: '))
+        new_gender = int(input('Novo sexo [1-Masc | 2-Fem]: '))
+        new_telephone = int(input('Novo telefone [(xx)xxxxx-xxxx]: '))
 
-        cursor.execute(f"UPDATE aluno SET Nome = '{newName}', Idade = {newAge}, Sexo = '{newGender}', Telefone = '{newTelephone}' WHERE RA = {optionChange}")
+        cursor.execute(f"UPDATE aluno SET Nome = '{new_name}', Idade = {new_age}, Sexo = '{new_gender}', Telefone = '{new_telephone}' WHERE RA = {option_change}")
         connect.commit()
     except ValueError:
         return "Valor digitado não é o esperado."
         
             
 def updateCurso(option):
-    optionChange = option
+    option_change = option
 
     try:
-        newName = str(input('Nome: '))
-        newDescricao = str(input('Descricao: '))
-        newNumeroVagas = int(input('Quantidade de vagas: '))
-        newCargaHoraria = int(input('Carga horária: '))
+        new_name = str(input('Nome: '))
+        new_description = str(input('Descricao: '))
+        new_number_vacancies = int(input('Quantidade de vagas: '))
+        new_workload = int(input('Carga horária: '))
 
-        cursor.execute(f"UPDATE curso SET Nome = '{newName}', Descricao = '{newDescricao}', Numero_vagas = '{newNumeroVagas}', Carga_horaria = '{newCargaHoraria}' WHERE ID_curso = {optionChange}")
+        cursor.execute(f"UPDATE curso SET Nome = '{new_name}', Descricao = '{new_description}', Numero_vagas = '{new_number_vacancies}', Carga_horaria = '{new_workload}' WHERE ID_curso = {option_change}")
         connect.commit()
     except ValueError:
         return "Valor digitado não é o esperado."
@@ -43,21 +43,21 @@ def updateCurso(option):
 
 while True:
     print('\nTABELAS DA ESCOLA')
-    for indice, table in enumerate(databaseTables):
-        print(f'{indice+1}. {table}')
+    for index, table in enumerate(databaseTables):
+        print(f'{index+1}. {table}')
     
     option = int(input('\nQual Tabela deseja realizar a operação: '))
 
-    for indice, operation in enumerate(databaseCRUD):
-        print(f'{indice+1}. {operation}')
+    for index, operation in enumerate(databaseCRUD):
+        print(f'{index+1}. {operation}')
 
 
     # Starting CRUD 
-    optionCrud = int(input('\nQual operação deseja realizar: '))
+    option_crud = int(input('\nQual operação deseja realizar: '))
 
     #Table ALUNO
     if option == 1:
-        if optionCrud == 1:
+        if option_crud == 1:
             #CRUD - Create
             name = str(input('Nome: '))
             age = int(input('Idade: '))
@@ -66,85 +66,85 @@ while True:
             cursor.execute(f"INSERT INTO {databaseTables[option-1]} (Nome, Idade, Sexo, Telefone) VALUES ('{name}',{age},{gender},{telephone})")
             connect.commit()
             print('Dados inseridos com sucesso.')
-        elif optionCrud == 2:
+        elif option_crud == 2:
             #CRUD - Read
             CloseConnectionTable()
-        elif optionCrud == 3:
+        elif option_crud == 3:
             #CRUD - Update
             CloseConnectionTable()
 
-            optionChange = int(input('Qual o ID que deseja modificar: '))
-            updateAluno(option=optionChange)
-        elif optionCrud == 4:
+            option_change = int(input('Qual o ID que deseja modificar: '))
+            updateAluno(option=option_change)
+        elif option_crud == 4:
             #CRUD - Delete
-            alunoRA = int(input('Qual registro quer apagar: '))
-            cursor.execute(f"DELETE FROM {databaseTables[option-1]} WHERE RA = {alunoRA}")
+            student_identification = int(input('Qual registro quer apagar: '))
+            cursor.execute(f"DELETE FROM {databaseTables[option-1]} WHERE RA = {student_identification}")
             
         else:
             print('Digite uma opção válida.')
 
     #TABLE ALUNO_CURSO
     elif option == 2:
-        if optionCrud == 1:
+        if option_crud == 1:
             #CRUD - Create
-            alunoRA = str(input('RA do Aluno: '))
-            cursoID = int(input('ID do Curso: '))
-            cursor.execute(f"INSERT INTO {databaseTables[option-1]} (FK_RA_aluno, FK_ID_curso) VALUES ('{alunoRA}',{cursoID})")
+            student_identification = str(input('RA do Aluno: '))
+            course_id = int(input('ID do Curso: '))
+            cursor.execute(f"INSERT INTO {databaseTables[option-1]} (FK_RA_aluno, FK_ID_curso) VALUES ('{student_identification}',{course_id})")
             connect.commit()
             print('Dados inseridos com sucesso.')
-        elif optionCrud == 2:
+        elif option_crud == 2:
             #CRUD - Read
             cursor.execute(f"SELECT ac.ID_curso_aluno, a.Nome AS RA, c.Nome AS ID_curso FROM aluno_curso ac JOIN aluno a ON ac.FK_RA_aluno = a.RA JOIN curso c ON ac.FK_ID_curso = c.ID_curso;")
             result = cursor.fetchall()
-        elif optionCrud == 3:
+        elif option_crud == 3:
             #CRUD - Update  VOLTAR AQUI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             cursor.execute(f"SELECT ac.ID_curso_aluno, a.Nome AS RA, c.Nome AS ID_curso FROM aluno_curso ac JOIN aluno a ON ac.FK_RA_aluno = a.RA JOIN curso c ON ac.FK_ID_curso = c.ID_curso;")
             result = cursor.fetchall()
 
-            optionChange = int(input('Qual o ID que deseja modificar: '))
+            option_change = int(input('Qual o ID que deseja modificar: '))
             
-            RAorID = int(input('Digite 1. Aluno e 2.Curso: '))
+            student_identification_or_course_id = int(input('Digite 1. Aluno e 2.Curso: '))
 
-            if RAorID == 1:
-                cursor.execute(f"SELECT FK_RA_aluno FROM aluno_curso WHERE ID_curso_aluno = {optionChange}")
+            if student_identification_or_course_id == 1:
+                cursor.execute(f"SELECT FK_RA_aluno FROM aluno_curso WHERE ID_curso_aluno = {option_change}")
                 FK_RA_aluno = cursor.fetchone()[0]
                 updateAluno(FK_RA_aluno)
-            elif RAorID == 2:
-                cursor.execute(f"SELECT FK_ID_curso FROM aluno_curso WHERE ID_curso_aluno = {optionChange}")
+            elif student_identification_or_course_id == 2:
+                cursor.execute(f"SELECT FK_ID_curso FROM aluno_curso WHERE ID_curso_aluno = {option_change}")
                 FK_RA_aluno = cursor.fetchone()[0]
                 updateCurso(FK_RA_aluno)
             else:
                 print('Opção inválida')
-        elif optionCrud == 4:
+        elif option_crud == 4:
             #CRUD - Delete
-            alunoCursoID = int(input('Qual registro quer apagar: '))
-            cursor.execute(f"DELETE FROM {databaseTables[option-1]} WHERE ID_curso_aluno = {alunoCursoID}")
+            student_course_id = int(input('Qual registro quer apagar: '))
+            cursor.execute(f"DELETE FROM {databaseTables[option-1]} WHERE ID_curso_aluno = {student_course_id}")
         else:
             print('Digite uma opção válida.')
 
     #TABLE CURSO
     elif option == 3:
-        if optionCrud == 1:
-            nome = str(input('Nome: '))
-            descricao = str(input('Descrição: '))
-            numeroVagas = int(input('Quantidade de Vagas: '))
-            cargaHoraria = int(input('Carga horária: '))
-            cursor.execute(f"INSERT INTO {databaseTables[option-1]} (Nome, Descricao, Numero_vagas, Carga_horaria) VALUES ('{nome}','{descricao}', {numeroVagas}, {cargaHoraria})")
+        if option_crud == 1:
+            name = str(input('Nome: '))
+            description = str(input('Descrição: '))
+            number_vacancies = int(input('Quantidade de Vagas: '))
+            workload = int(input('Carga horária: '))
+            cursor.execute(f"INSERT INTO {databaseTables[option-1]} (Nome, Descricao, Numero_vagas, Carga_horaria) VALUES ('{name}','{description}', {number_vacancies}, {workload})")
             connect.commit()
             print('Dados inseridos com sucesso.')
-        elif optionCrud == 2:
+        elif option_crud == 2:
             #CRUD - Read
             CloseConnectionTable()
-        elif optionCrud == 3:
+        elif option_crud == 3:
             #CRUD - Update
             CloseConnectionTable()
 
-            optionChange = int(input('Qual o ID que deseja modificar: '))
-            updateCurso(optionChange)
-        elif optionCrud == 4:
+            option_change = int(input('Qual o ID que deseja modificar: '))
+            updateCurso(option_change)
+        elif option_crud == 4:
              #CRUD - Delete
-            cursoID = int(input('Qual registro quer apagar: '))
-            cursor.execute(f"DELETE FROM {databaseTables[option-1]} WHERE ID_curso = {cursoID}")
+            course_id = int(input('Qual registro quer apagar: '))
+            cursor.execute(f"DELETE FROM {databaseTables[option-1]} WHERE ID_curso = {course_id}")
         else:
             print('Digite uma opção válida.')
 
