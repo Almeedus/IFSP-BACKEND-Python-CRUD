@@ -5,13 +5,13 @@ cursor = connect.cursor()
 databaseTables = ['aluno', 'aluno_curso', 'curso', 'sair']
 databaseCRUD = ['Criar novo registro', 'Ler registro', 'Atualizar registro', 'Deletar registro']
 
-def CloseConnectionTable():
+def close_connection_table():
     cursor.execute(f"SELECT * FROM {databaseTables[option-1]}")
     cursor.fetchall()
     
 
 
-def updateAluno(option):
+def update_student(option):
     option_change = option
 
     try:
@@ -26,7 +26,7 @@ def updateAluno(option):
         return "Valor digitado não é o esperado."
         
             
-def updateCurso(option):
+def update_course(option):
     option_change = option
 
     try:
@@ -68,13 +68,13 @@ while True:
             print('Dados inseridos com sucesso.')
         elif option_crud == 2:
             #CRUD - Read
-            CloseConnectionTable()
+            close_connection_table()
         elif option_crud == 3:
             #CRUD - Update
-            CloseConnectionTable()
+            close_connection_table()
 
             option_change = int(input('Qual o ID que deseja modificar: '))
-            updateAluno(option=option_change)
+            update_student(option=option_change)
         elif option_crud == 4:
             #CRUD - Delete
             student_identification = int(input('Qual registro quer apagar: '))
@@ -108,11 +108,11 @@ while True:
             if student_identification_or_course_id == 1:
                 cursor.execute(f"SELECT FK_RA_aluno FROM aluno_curso WHERE ID_curso_aluno = {option_change}")
                 FK_RA_aluno = cursor.fetchone()[0]
-                updateAluno(FK_RA_aluno)
+                update_student(FK_RA_aluno)
             elif student_identification_or_course_id == 2:
                 cursor.execute(f"SELECT FK_ID_curso FROM aluno_curso WHERE ID_curso_aluno = {option_change}")
                 FK_RA_aluno = cursor.fetchone()[0]
-                updateCurso(FK_RA_aluno)
+                update_course(FK_RA_aluno)
             else:
                 print('Opção inválida')
         elif option_crud == 4:
@@ -134,13 +134,13 @@ while True:
             print('Dados inseridos com sucesso.')
         elif option_crud == 2:
             #CRUD - Read
-            CloseConnectionTable()
+            close_connection_table()
         elif option_crud == 3:
             #CRUD - Update
-            CloseConnectionTable()
+            close_connection_table()
 
             option_change = int(input('Qual o ID que deseja modificar: '))
-            updateCurso(option_change)
+            update_course(option_change)
         elif option_crud == 4:
              #CRUD - Delete
             course_id = int(input('Qual registro quer apagar: '))
